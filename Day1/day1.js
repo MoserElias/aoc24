@@ -1,9 +1,9 @@
-var fs = require('fs');
-var inputFilePath = "real-input.txt";
-var data = fs.readFileSync(inputFilePath, 'utf8');
-var lines = data.trim().split('\n');
+var fs1 = require('fs');
 var Day1Execution = /** @class */ (function () {
     function Day1Execution() {
+        this.inputFilePath = "real-input.txt";
+        this.data = fs1.readFileSync(this.inputFilePath, 'utf8');
+        this.lines = this.data.trim().split('\n');
     }
     Day1Execution.prototype.parseLines = function (inputLines) {
         var leftSide = [];
@@ -31,11 +31,18 @@ var Day1Execution = /** @class */ (function () {
         }
         return distance;
     };
+    Object.defineProperty(Day1Execution.prototype, "getLines", {
+        get: function () {
+            return this.lines;
+        },
+        enumerable: false,
+        configurable: true
+    });
     return Day1Execution;
 }());
 function main() {
     var execution = new Day1Execution();
-    var _a = execution.parseLines(lines), leftSide = _a.leftSide, rightSide = _a.rightSide;
+    var _a = execution.parseLines(execution.getLines), leftSide = _a.leftSide, rightSide = _a.rightSide;
     var sorted = execution.sortLeftRight(leftSide, rightSide);
     console.log(sorted);
     var distance = execution.calculateDistance(sorted.leftSide, sorted.rightSide);

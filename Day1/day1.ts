@@ -1,10 +1,18 @@
-const fs = require('fs');
-
-const inputFilePath = "real-input.txt";
-const data = fs.readFileSync(inputFilePath, 'utf8');
-const lines = data.trim().split('\n');
+const fs1 = require('fs');
 
 class Day1Execution {
+
+    private readonly inputFilePath: string;
+    private readonly data: string;
+    private readonly lines: string[];
+
+    constructor() { 
+        this.inputFilePath = "real-input.txt";
+        this.data = fs1.readFileSync(this.inputFilePath, 'utf8');
+        this.lines = this.data.trim().split('\n');
+    }
+
+    
     parseLines(inputLines: string[]): { leftSide: number[], rightSide: number[] } {
         const leftSide: number[] = [];
         const rightSide: number[] = [];
@@ -38,12 +46,16 @@ class Day1Execution {
         }
 
         return distance;
+    } 
+    
+    get getLines(): string[] {
+        return this.lines;
     }
 }
 
-function main() {
+function main1() {
     const execution = new Day1Execution();
-    const { leftSide, rightSide } = execution.parseLines(lines);
+    const { leftSide, rightSide } = execution.parseLines(execution.getLines);
     const sorted = execution.sortLeftRight(leftSide, rightSide); 
     console.log(sorted);
 
@@ -51,4 +63,4 @@ function main() {
     console.log('the calculated distance is: ', distance);
 }
 
-main();
+main1();
